@@ -1,9 +1,10 @@
 #include "Window.hpp"
 
 
-GLFWwindow* Window::_window;
+GLFWwindow* Window::window;
 
-int Window::Initialize(int width, int height, const char* title)
+
+int Window::Initialize(const int width, const int height, const char* title)
 {
     // initialize the library
     if (!glfwInit())
@@ -12,16 +13,16 @@ int Window::Initialize(int width, int height, const char* title)
     }
 
     // create a windowed mode window and its OpenGL context
-    _window = glfwCreateWindow(width, height, title, NULL, NULL);
+	window = glfwCreateWindow(width, height, title, NULL, NULL);
 
-    if (!_window)
+    if (!window)
     {
         glfwTerminate();
         return 1;
     }
 
     // make the window's context current
-    glfwMakeContextCurrent(_window);
+    glfwMakeContextCurrent(window);
 
     if (glewInit() != GLEW_OK)
     {
@@ -39,15 +40,15 @@ void Window::Terminate()
 
 bool Window::ShouldClose()
 {
-    return glfwWindowShouldClose(_window);
+    return glfwWindowShouldClose(window);
 }
 
 void Window::SwapBuffers()
 {
-    glfwSwapBuffers(_window);
+    glfwSwapBuffers(window);
 }
 
 void Window::SetShouldClose(int flag)
 {
-    glfwSetWindowShouldClose(_window, flag);
+    glfwSetWindowShouldClose(window, flag);
 }

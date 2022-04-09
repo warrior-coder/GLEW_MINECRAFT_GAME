@@ -9,9 +9,9 @@ struct GLFWwindow;
 class Window
 {
 public:
-	static GLFWwindow* _window;
+	static GLFWwindow* window;
 
-	static int Initialize(int width, int height, const char* title = "");
+	static int Initialize(const int width, const int height, const char* title = "GLFW Window");
 	static 	void Terminate();
 
 	static bool ShouldClose();

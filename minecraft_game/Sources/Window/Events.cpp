@@ -1,60 +1,61 @@
 #include "Events.hpp"
 
 
-bool* Events::_keys;
-unsigned int* Events::_frames;
-unsigned int Events::_current;
+bool* Events::keys;
+unsigned int* Events::frames;
+unsigned int Events::current;
 double Events::deltaX;
 double Events::deltaY;
 double Events::x;
 double Events::y;
-bool Events::_cursor_locked;
-bool Events::_cursor_started;
+bool Events::cursorLocked;
+bool Events::cursorStarted;
+
 
 #define KEYS_SIZE 1032
-#define MOUSE_BUTTON_OFFSET 1024
+#define MOUSE_BUTTON_CODE_OFFSET 1024
 
 
 void KeyCallback(GLFWwindow* window, int keyCode, int scanCode, int action, int mods)
 {
 	if (action == GLFW_PRESS)
 	{
-		Events::_keys[keyCode] = true;
-		Events::_frames[keyCode] = Events::_current;
+		Events::keys[keyCode] = true;
+		Events::frames[keyCode] = Events::current;
 	}
 	else if (action == GLFW_RELEASE)
 	{
-		Events::_keys[keyCode] = false;
-		Events::_frames[keyCode] = Events::_current;
+		Events::keys[keyCode] = false;
+		Events::frames[keyCode] = Events::current;
 	}
 }
 
 void MouseButtonCallback(GLFWwindow* window, int buttonCode, int action, int mods)
 {
-	int keyCode = MOUSE_BUTTON_OFFSET + buttonCode;
+	const int keyCode = MOUSE_BUTTON_CODE_OFFSET + buttonCode;
 
 	if (action == GLFW_PRESS)
 	{
-		Events::_keys[keyCode] = true;
-		Events::_frames[keyCode] = Events::_current;
+		Events::keys[keyCode] = true;
+		Events::frames[keyCode] = Events::current;
 	}
 	else if (action == GLFW_RELEASE)
 	{
-		Events::_keys[keyCode] = false;
-		Events::_frames[keyCode] = Events::_current;
+		Events::keys[keyCode] = false;
+		Events::frames[keyCode] = Events::current;
 	}
 }
 
 void CursorPositionCallback(GLFWwindow* window, double xPos, double yPos)
 {
-	if (Events::_cursor_started)
+	if (Events::cursorStarted)
 	{
 		Events::deltaX += xPos - Events::x;
 		Events::deltaY += yPos - Events::y;
 	}
 	else
 	{
-		Events::_cursor_started = true;
+		Events::cursorStarted = true;
 	}
 
 	Events::x = xPos;
@@ -63,17 +64,17 @@ void CursorPositionCallback(GLFWwindow* window, double xPos, double yPos)
 
 int Events::Initialize()
 {
-	GLFWwindow* window = Window::_window;
+	GLFWwindow* window = Window::window;
 
-	_keys = new bool[1032]{};
-	_frames = new unsigned int[1032]{};
-	_current = 0;
+	keys = new bool[1032]{};
+	frames = new unsigned int[1032]{};
+	current = 0;
 	deltaX = 0.0;
 	deltaY = 0.0;
 	x = 0.0;
 	y = 0.0;
-	_cursor_locked = false;
-	_cursor_started = false;
+	cursorLocked = false;
+	cursorStarted = false;
 
 	glfwSetKeyCallback(window, KeyCallback);
 	glfwSetMouseButtonCallback(window, MouseButtonCallback);
@@ -84,45 +85,47 @@ int Events::Initialize()
 
 void Events::Terminate()
 {
-	delete[] _keys;
-	delete[] _frames;
+	delete[] keys;
+	delete[] frames;
 }
 
 void Events::PollEvents()
 {
-	_current++;
+	current++;
 	deltaX = 0.0;
 	deltaY = 0.0;
 
 	glfwPollEvents();
 }
 
-bool Events::pressed(int keyCode)
+bool Events::KeyPressed(int keyCode)
 {
-	if (keyCode < 0 || keyCode >= MOUSE_BUTTON_OFFSET) return false;
+	if (keyCode < 0 || keyCode >= MOUSE_BUTTON_CODE_OFFSET) return false;
 
-	return _keys[keyCode];
+	return keys[keyCode];
 }
 
-bool Events::justPressed(int keyCode)
+bool Events::KeyJustPressed(int keyCode)
 {
-	if (keyCode < 0 || keyCode >= MOUSE_BUTTON_OFFSET) return false;
+	if (keyCode < 0 || keyCode >= MOUSE_BUTTON_CODE_OFFSET) return false;
 
-	return _keys[keyCode] && _frames[keyCode] == _current;
+	return keys[keyCode] && frames[keyCode] == current;
 }
 
-bool Events::clicked(int buttonCode)
+bool Events::MouseClicked(int buttonCode)
 {
-	int keyCode = MOUSE_BUTTON_OFFSET + buttonCode;
-	if (keyCode < MOUSE_BUTTON_OFFSET || keyCode >= KEYS_SIZE) return false;
+	const int keyCode = MOUSE_BUTTON_CODE_OFFSET + buttonCode;
 
-	return _keys[keyCode];
+	if (keyCode < MOUSE_BUTTON_CODE_OFFSET || keyCode >= KEYS_SIZE) return false;
+
+	return keys[keyCode];
 }
 
-bool Events::justClicked(int buttonCode)
+bool Events::MouseJustClicked(int buttonCode)
 {
-	int keyCode = MOUSE_BUTTON_OFFSET + buttonCode;
-	if (keyCode < MOUSE_BUTTON_OFFSET || keyCode >= KEYS_SIZE) return false;
+	const int keyCode = MOUSE_BUTTON_CODE_OFFSET + buttonCode;
 
-	return _keys[keyCode] && _frames[keyCode] == _current;
+	if (keyCode < MOUSE_BUTTON_CODE_OFFSET || keyCode >= KEYS_SIZE) return false;
+
+	return keys[keyCode] && frames[keyCode] == current;
 }

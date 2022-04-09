@@ -17,11 +17,11 @@ int main(void)
         // poll for and process events
         Events::PollEvents();
 
-        if (Events::justPressed(GLFW_KEY_ESCAPE))
+        if (Events::KeyJustPressed(GLFW_KEY_ESCAPE))
         {
             Window::SetShouldClose(true);
         }
-        if (Events::justClicked(GLFW_MOUSE_BUTTON_1))
+        if (Events::MouseJustClicked(GLFW_MOUSE_BUTTON_1))
         {
             glClearColor(1, 0, 0, 1);
         }
@@ -31,7 +31,6 @@ int main(void)
 
         // swap front and back buffers
         Window::SwapBuffers();
-
     }
 
     Window::Terminate();
