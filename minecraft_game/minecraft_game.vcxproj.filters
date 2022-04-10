@@ -64,10 +64,10 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\fragment.glsl">
+    <None Include="Resources\FragmentShader.glsl">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="Resources\vertex.glsl">
+    <None Include="Resources\VertexShader.glsl">
       <Filter>Resource Files</Filter>
     </None>
   </ItemGroup>

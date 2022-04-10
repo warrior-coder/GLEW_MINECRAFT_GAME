@@ -14,8 +14,8 @@ int main()
     Window::Initialize(WINDOW_WIDTH, WINDOW_HEIGHT, "Voxel Engine");
     Events::Initialize();
 
-    // .glsl Ц OpenGL Shading Language (€зык шейдеров)
-    Shader* shader = LoadShader("Resources/vertex.glsl", "Resources/fragment.glsl");
+    // .glsl Ц OpenGL Shading Language (€зык программировани€ шейдеров)
+    Shader* shader = LoadShader("Resources/VertexShader.glsl", "Resources/FragmentShader.glsl");
     if (!shader)
     {
         std::cerr << "FAILED_TO_LOAD_SHADER" << std::endl;
@@ -45,8 +45,8 @@ int main()
     };
     GLuint vertexArrayId, vertexBufferId;
 
-    glGenVertexArrays(1, &vertexArrayId); // создаем объект вершинного массива (VAO)
-	glGenBuffers(1, &vertexBufferId); // создаем объект вершинного буфера (VBO)
+    glGenVertexArrays(1, &vertexArrayId); // генерируем 1 буфер дл€ VAO (Vertex Array Object) на видеокарте
+	glGenBuffers(1, &vertexBufferId); // генерируем 1 буфер дл€ VBO (Vertex Buffer Object) на видеокарте
 
 	glBindVertexArray(vertexArrayId); // прив€зываем VAO
     glBindBuffer(GL_ARRAY_BUFFER, vertexBufferId); // прив€зываем VBO к VAO

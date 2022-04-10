@@ -38,8 +38,8 @@
     <ClInclude Include="Sources\Window\Window.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\fragment.glsl" />
-    <None Include="Resources\vertex.glsl" />
+    <None Include="Resources\FragmentShader.glsl" />
+    <None Include="Resources\VertexShader.glsl" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resources\TestImage.png" />

@@ -3,18 +3,14 @@
 
 Shader::Shader(GLuint programId)
 	: programId(programId)
-{
-
-}
+{}
 
 Shader::~Shader()
 {
-	// удаление шейдерной программы
-	glDeleteProgram(programId);
+	glDeleteProgram(programId); // удаление шейдерной программы
 }
 
 void Shader::Use()
 {
-	// выполнение шейдерной программы
-	glUseProgram(programId);
+	glUseProgram(programId); // выполнение шейдерной программы
 }
