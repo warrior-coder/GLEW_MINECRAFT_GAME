@@ -6,6 +6,7 @@
 
 struct GLFWwindow;
 
+// система Window отвечает за графическое окно
 class Window
 {
 public:
@@ -18,4 +19,7 @@ public:
 	static void SwapBuffers();
 
 	static void SetShouldClose(int flag);
+
+	Window() = delete;
+	~Window() = delete;
 };

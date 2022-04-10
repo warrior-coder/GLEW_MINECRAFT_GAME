@@ -1,13 +1,16 @@
 #include "Events.hpp"
 
 
+// определяем static-члены класса Events
 bool* Events::keys;
+
 unsigned int* Events::frames;
-unsigned int Events::current;
-double Events::deltaX;
-double Events::deltaY;
-double Events::x;
-double Events::y;
+unsigned int Events::currentFrame;
+
+double Events::cursorDeltaX;
+double Events::cursorDeltaY;
+double Events::cursorX;
+double Events::cursorY;
 bool Events::cursorLocked;
 bool Events::cursorStarted;
 
@@ -21,12 +24,12 @@ void KeyCallback(GLFWwindow* window, int keyCode, int scanCode, int action, int 
 	if (action == GLFW_PRESS)
 	{
 		Events::keys[keyCode] = true;
-		Events::frames[keyCode] = Events::current;
+		Events::frames[keyCode] = Events::currentFrame;
 	}
 	else if (action == GLFW_RELEASE)
 	{
 		Events::keys[keyCode] = false;
-		Events::frames[keyCode] = Events::current;
+		Events::frames[keyCode] = Events::currentFrame;
 	}
 }
 
@@ -37,12 +40,12 @@ void MouseButtonCallback(GLFWwindow* window, int buttonCode, int action, int mod
 	if (action == GLFW_PRESS)
 	{
 		Events::keys[keyCode] = true;
-		Events::frames[keyCode] = Events::current;
+		Events::frames[keyCode] = Events::currentFrame;
 	}
 	else if (action == GLFW_RELEASE)
 	{
 		Events::keys[keyCode] = false;
-		Events::frames[keyCode] = Events::current;
+		Events::frames[keyCode] = Events::currentFrame;
 	}
 }
 
@@ -50,16 +53,16 @@ void CursorPositionCallback(GLFWwindow* window, double xPos, double yPos)
 {
 	if (Events::cursorStarted)
 	{
-		Events::deltaX += xPos - Events::x;
-		Events::deltaY += yPos - Events::y;
+		Events::cursorDeltaX += xPos - Events::cursorX;
+		Events::cursorDeltaY += yPos - Events::cursorY;
 	}
 	else
 	{
 		Events::cursorStarted = true;
 	}
 
-	Events::x = xPos;
-	Events::y = yPos;
+	Events::cursorX = xPos;
+	Events::cursorY = yPos;
 }
 
 int Events::Initialize()
@@ -68,14 +71,15 @@ int Events::Initialize()
 
 	keys = new bool[1032]{};
 	frames = new unsigned int[1032]{};
-	current = 0;
-	deltaX = 0.0;
-	deltaY = 0.0;
-	x = 0.0;
-	y = 0.0;
+	currentFrame = 0;
+	cursorDeltaX = 0.0;
+	cursorDeltaY = 0.0;
+	cursorX = 0.0;
+	cursorY = 0.0;
 	cursorLocked = false;
 	cursorStarted = false;
 
+	// устанавливаем функции-обработчики событий окна
 	glfwSetKeyCallback(window, KeyCallback);
 	glfwSetMouseButtonCallback(window, MouseButtonCallback);
 	glfwSetCursorPosCallback(window, CursorPositionCallback);
@@ -91,10 +95,11 @@ void Events::Terminate()
 
 void Events::PollEvents()
 {
-	current++;
-	deltaX = 0.0;
-	deltaY = 0.0;
+	currentFrame++;
+	cursorDeltaX = 0.0;
+	cursorDeltaY = 0.0;
 
+	// запрос событий
 	glfwPollEvents();
 }
 
@@ -109,7 +114,7 @@ bool Events::KeyJustPressed(int keyCode)
 {
 	if (keyCode < 0 || keyCode >= MOUSE_BUTTON_CODE_OFFSET) return false;
 
-	return keys[keyCode] && frames[keyCode] == current;
+	return keys[keyCode] && frames[keyCode] == currentFrame;
 }
 
 bool Events::MouseClicked(int buttonCode)
@@ -127,5 +132,5 @@ bool Events::MouseJustClicked(int buttonCode)
 
 	if (keyCode < MOUSE_BUTTON_CODE_OFFSET || keyCode >= KEYS_SIZE) return false;
 
-	return keys[keyCode] && frames[keyCode] == current;
+	return keys[keyCode] && frames[keyCode] == currentFrame;
 }

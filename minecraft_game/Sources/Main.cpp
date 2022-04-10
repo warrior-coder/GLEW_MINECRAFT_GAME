@@ -4,7 +4,7 @@
 #include "Window/Events.hpp"
 #include "Graphics/Shader.hpp"
 #include "Graphics/Texture.hpp"
-#include "Loaders/LoadTexture.hpp"
+
 
 #define WINDOW_WIDTH 1280
 #define WINDOW_HEIGHT 720
@@ -14,7 +14,7 @@ int main()
     Window::Initialize(WINDOW_WIDTH, WINDOW_HEIGHT, "Voxel Engine");
     Events::Initialize();
 
-    // .glsl Ц OpenGL Shading Language
+    // .glsl Ц OpenGL Shading Language (€зык шейдеров)
     Shader* shader = LoadShader("Resources/vertex.glsl", "Resources/fragment.glsl");
     if (!shader)
     {
@@ -23,7 +23,7 @@ int main()
         return 3;
     }
 
-    Texture* texture = LoadTexture("Resources/TestImage.png");
+	Texture* texture = LoadTexture("Resources/TestImage.png");
     if (!texture)
     {
         std::cerr << "FAILED_TO_LOAD_TEXTURE" << std::endl;

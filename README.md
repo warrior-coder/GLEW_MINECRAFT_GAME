@@ -1,5 +1,5 @@
-# GLFW MINECRAFT GAME
+# GLEW MINECRAFT GAME
 
-Voxel Engine on C++ with OpenGL. An attempt to create a game somehow similar to the famous Minecraft.
+Voxel Engine on C++ with modern OpenGL. An attempt to create a game somehow similar to the famous Minecraft.
 
 ![screenshot](Screenshots/Screenshot2.png)

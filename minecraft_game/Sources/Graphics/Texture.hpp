@@ -1,12 +1,8 @@
 #pragma once
 
-#include <iostream>
-#include <fstream>
-#include <sstream>
 #include <string>
-#include <GLEW/glew.h>
-#include <GLFW/glfw3.h>
 
+#include <GLEW/glew.h>
 
 class Texture
 {

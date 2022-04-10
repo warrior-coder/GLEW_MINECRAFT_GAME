@@ -19,6 +19,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Sources\Loaders\c_load_png.c" />
+    <ClCompile Include="Sources\Loaders\LoadShader.cpp" />
     <ClCompile Include="Sources\Graphics\Shader.cpp" />
     <ClCompile Include="Sources\Graphics\Texture.cpp" />
     <ClCompile Include="Sources\Loaders\LoadTexture.cpp" />
@@ -27,6 +29,8 @@
     <ClCompile Include="Sources\Window\Window.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Sources\Loaders\c_load_png.h" />
+    <ClInclude Include="Sources\Loaders\LoadShader.hpp" />
     <ClInclude Include="Sources\Graphics\Shader.hpp" />
     <ClInclude Include="Sources\Graphics\Texture.hpp" />
     <ClInclude Include="Sources\Loaders\LoadTexture.hpp" />
