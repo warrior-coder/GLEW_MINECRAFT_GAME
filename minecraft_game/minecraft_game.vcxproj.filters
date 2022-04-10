@@ -27,6 +27,12 @@
     <ClCompile Include="Sources\Graphics\Shader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Sources\Loaders\LoadTexture.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\Graphics\Texture.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Sources\Window\Window.hpp">
@@ -38,16 +44,23 @@
     <ClInclude Include="Sources\Graphics\Shader.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Sources\Loaders\LoadTexture.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\Graphics\Texture.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\main.glslv" />
-    <None Include="Resources\main.glslf" />
+    <None Include="Resources\fragment.glsl">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Resources\vertex.glsl">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resources\TestImage.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="Sources\Loaders\TestImage.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>
