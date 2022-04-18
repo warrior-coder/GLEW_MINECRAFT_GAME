@@ -14,15 +14,12 @@ int Window::Initialize(const int width, const int height, const char* title)
 
     // создание окна с контекстом OpenGL
 	window = glfwCreateWindow(width, height, title, NULL, NULL);
-
     if (!window)
     {
         glfwTerminate();
         return 2;
     }
-
-    // делаем контекст окна текущим контекстом отрисовки
-    glfwMakeContextCurrent(window);
+    glfwMakeContextCurrent(window); // делаем контекст окна текущим контекстом отрисовки
 
     // инициализация GLEW (только после подключения контекста отрисовки OpenGL)
     if (glewInit() != GLEW_OK)
@@ -36,8 +33,7 @@ int Window::Initialize(const int width, const int height, const char* title)
 
 void Window::Terminate()
 {
-    // завершает работу GLFW и освобождает всю выделенную ей память
-    glfwTerminate();
+    glfwTerminate(); // завершает работу GLFW и освобождает всю выделенную ей память
 }
 
 bool Window::ShouldClose()
@@ -47,8 +43,7 @@ bool Window::ShouldClose()
 
 void Window::SwapBuffers()
 {
-    // меняет местами передний и задний буферы окна при отрисовки
-    glfwSwapBuffers(window);
+    glfwSwapBuffers(window); // обмен переднего и заднего буферов
 }
 
 void Window::SetShouldClose(int flag)

@@ -1,5 +1,6 @@
 #include "c_load_png.h"
 
+
 GLuint c_load_png(const char* fileName, GLuint* width_ptr, GLuint* height_ptr)
 {
     FILE* file_ptr;

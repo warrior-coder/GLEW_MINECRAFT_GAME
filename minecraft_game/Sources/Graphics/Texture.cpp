@@ -16,4 +16,3 @@ void Texture::Bind()
 {
 	glBindTexture(GL_TEXTURE_2D, textureId);
 }
-
