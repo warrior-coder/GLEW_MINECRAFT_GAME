@@ -15,9 +15,9 @@ public:
 	glm::vec3 up; // вектор направления вверх
 	glm::vec3 front; // вектор направления вперед
 
-	glm::vec3 position;
+	glm::vec3 position; // позиция
 	float fieldOfViewY; // угол обзора
-	glm::mat4 rotation;
+	glm::mat4 rotation; // поворот
 
 	Camera(glm::vec3 position, float fieldOfViewY);
 

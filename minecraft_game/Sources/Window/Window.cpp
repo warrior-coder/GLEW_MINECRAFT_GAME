@@ -64,3 +64,8 @@ void Window::SetShouldClose(int flag)
 {
     glfwSetWindowShouldClose(window, flag);
 }
+
+void Window::SetCursorMode(int value)
+{
+    glfwSetInputMode(window, GLFW_CURSOR, value);
+}

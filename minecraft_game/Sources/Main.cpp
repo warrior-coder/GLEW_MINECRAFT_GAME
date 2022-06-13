@@ -72,16 +72,16 @@ int main()
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
     // камера
-    Camera* camera = new Camera(glm::vec3(0, 0, 1), 0.5f);
-
-    glm::mat4 model(1.0f); // матрица трансформации объекта
-    model = glm::translate(model, glm::vec3(0.5f, 0, 0)); // функция трансформирования не меняет матрицу, а возвращает новую
+    Camera* camera = new Camera(glm::vec3(0, 0, 1), glm::radians(70.0f));
+    glm::mat4 modelView(1.0f); // матрица трансформации модели
 
     // время
     double lastTime = glfwGetTime();
-    double deltaTime = 0.0;
+    double deltaTime;
     double currentTime;
     float speed = 5.0f;
+    float cameraRotateX = 0.0f;
+    float cameraRotateY = 0.0f;
 
     // основной цикл программы
     while (!Window::ShouldClose())
@@ -91,7 +91,7 @@ int main()
         deltaTime = currentTime - lastTime;
         lastTime = currentTime;
 
-        // обработка событий
+        // обработка событий клавиш
         if (Events::KeyJustPressed(GLFW_KEY_ESCAPE))
         {
             Window::SetShouldClose(true);
@@ -100,6 +100,11 @@ int main()
         {
             glClearColor(0, 0, 0, 1);
         }
+        if (Events::KeyJustPressed(GLFW_KEY_TAB))
+        {
+            Events::ToggleCursor();
+        }
+    	// перемещение WASD
         if (Events::KeyPressed(GLFW_KEY_W))
         {
             camera->position += camera->front * static_cast<float>(deltaTime) * speed;
@@ -116,13 +121,36 @@ int main()
         {
             camera->position -= camera->right * static_cast<float>(deltaTime) * speed;
         }
+        // поворот камеры (при заблокированном курсоре)
+        if (Events::cursorLocked)
+        {
+        	cameraRotateX += static_cast<float>(-Events::cursorDeltaX) / static_cast<float>(Window::width);
+	        cameraRotateY += static_cast<float>(-Events::cursorDeltaY) / static_cast<float>(Window::height);
+
+	        if (cameraRotateY < -glm::radians(89.0f))
+	        {
+	            cameraRotateY = -glm::radians(89.0f);
+	        }
+        	if (cameraRotateY > glm::radians(89.0f))
+	        {
+	            cameraRotateY = glm::radians(89.0f);
+	        }
+
+    		camera->rotation = glm::mat4(1.0f);
+    		camera->FirstPersonViewRotate(
+	            cameraRotateY,
+	            cameraRotateX,
+	            0.0f
+	        );
+        }
+       
 
         // очистка изображения
         glClear(GL_COLOR_BUFFER_BIT);
 
     	// отрисовка VAO
         shader->Use();
-        shader->UniformMatrix("model_view", model);
+        shader->UniformMatrix("model_view", modelView);
         shader->UniformMatrix(
             "projection_view",
             camera->GetProjectionMatrix() * camera->GetViewMatrix()

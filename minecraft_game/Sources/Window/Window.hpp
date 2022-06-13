@@ -21,6 +21,7 @@ public:
 	static void SwapBuffers();
 
 	static void SetShouldClose(int flag);
+	static void SetCursorMode(int value);
 
 	Window() = delete;
 	~Window() = delete;

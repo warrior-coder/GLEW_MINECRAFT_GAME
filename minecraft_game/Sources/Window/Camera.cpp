@@ -4,12 +4,12 @@
 void Camera::_updateVectors()
 {
 	// умножаем матрицу вращения на направляющие вектора
-	right = glm::vec3(rotation * glm::vec4(1, 0, 0, 1));
-	up = glm::vec3(rotation * glm::vec4(0, -1, 0, 1));
-	front = glm::vec3(rotation * glm::vec4(0, 0, -1, 1)); // -1 потому что Oz направлена в сторону экрана
+	right = glm::vec3(rotation * glm::vec4(1, 0, 0, -1));
+	up = glm::vec3(rotation * glm::vec4(0, 1, 0, -1));
+	front = glm::vec3(rotation * glm::vec4(0, 0, -1, -1)); // -1 потому что Oz направлена в сторону экрана
 }
 
-Camera::Camera(glm::vec3 position, float fieldOfView)
+Camera::Camera(glm::vec3 position, float fieldOfViewY)
 	: position(position)
 	, fieldOfViewY(fieldOfViewY)
 	, rotation(1.0f)

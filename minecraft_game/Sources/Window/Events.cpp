@@ -146,3 +146,12 @@ bool Events::MouseJustClicked(int buttonCode)
 
 	return keys[keyCode] && frames[keyCode] == currentFrame;
 }
+
+void Events::ToggleCursor()
+{
+	cursorLocked = !cursorLocked;
+
+	Window::SetCursorMode(
+		cursorLocked ? GLFW_CURSOR_DISABLED : GLFW_CURSOR_NORMAL
+	);
+}

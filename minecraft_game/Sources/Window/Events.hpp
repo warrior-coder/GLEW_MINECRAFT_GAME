@@ -34,6 +34,8 @@ public:
 	static bool MouseClicked(int buttonCode);
 	static bool MouseJustClicked(int buttonCode);
 
+	static void ToggleCursor();
+
 	Events() = delete;
 	~Events() = delete;
 };
