@@ -6,9 +6,6 @@
 #include "Graphics/Shader.hpp"
 #include "Graphics/Texture.hpp"
 
-#include <GLM/glm.hpp>
-#include <GLM/ext.hpp>
-
 constexpr auto WINDOW_WIDTH = 1280;
 constexpr auto WINDOW_HEIGHT = 720;
 
@@ -72,7 +69,10 @@ int main()
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
     // камера
-    Camera* camera = new Camera(glm::vec3(0, 0, 1), glm::radians(70.0f));
+    Camera* camera = new Camera(
+        glm::vec3(0, 0, 1),
+        glm::radians(70.0f)
+    );
     glm::mat4 modelView(1.0f); // матрица трансформации модели
 
     // время
@@ -91,6 +91,7 @@ int main()
         deltaTime = currentTime - lastTime;
         lastTime = currentTime;
 
+
         // обработка событий клавиш
         if (Events::KeyJustPressed(GLFW_KEY_ESCAPE))
         {
@@ -107,25 +108,25 @@ int main()
     	// перемещение WASD
         if (Events::KeyPressed(GLFW_KEY_W))
         {
-            camera->position += camera->front * static_cast<float>(deltaTime) * speed;
+            camera->position += camera->front * (float)deltaTime * speed;
         }
     	if (Events::KeyPressed(GLFW_KEY_S))
         {
-            camera->position -= camera->front * static_cast<float>(deltaTime) * speed;
+            camera->position -= camera->front * (float)deltaTime * speed;
         }
         if (Events::KeyPressed(GLFW_KEY_D))
         {
-            camera->position += camera->right * static_cast<float>(deltaTime) * speed;
+            camera->position += camera->right * (float)deltaTime * speed;
         }
     	if (Events::KeyPressed(GLFW_KEY_A))
         {
-            camera->position -= camera->right * static_cast<float>(deltaTime) * speed;
+            camera->position -= camera->right * (float)deltaTime * speed;
         }
         // поворот камеры (при заблокированном курсоре)
         if (Events::cursorLocked)
         {
-        	cameraRotateX += static_cast<float>(-Events::cursorDeltaX) / static_cast<float>(Window::width);
-	        cameraRotateY += static_cast<float>(-Events::cursorDeltaY) / static_cast<float>(Window::height);
+        	cameraRotateX += -(float)Events::cursorDeltaX / (float)Window::width;
+	        cameraRotateY += -(float)Events::cursorDeltaY / (float)Window::height;
 
 	        if (cameraRotateY < -glm::radians(89.0f))
 	        {
@@ -137,11 +138,7 @@ int main()
 	        }
 
     		camera->rotation = glm::mat4(1.0f);
-    		camera->FirstPersonViewRotate(
-	            cameraRotateY,
-	            cameraRotateX,
-	            0.0f
-	        );
+    		camera->FirstPersonViewRotate(cameraRotateY, cameraRotateX, 0.0f);
         }
        
 
@@ -171,6 +168,7 @@ int main()
     // освобождение памяти
     delete shader;
     delete texture;
+    delete camera;
     glDeleteBuffers(1, &vertexCoordinatesBufferId); // удаление вершинного буфера
     glDeleteVertexArrays(1, &vertexArrayId); // удаление вершинного массива
     Window::Terminate();
