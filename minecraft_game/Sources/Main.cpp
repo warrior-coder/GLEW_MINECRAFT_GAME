@@ -2,12 +2,15 @@
 
 #include "Window/Window.hpp"
 #include "Window/Events.hpp"
+#include "Window/Camera.hpp"
 #include "Graphics/Shader.hpp"
 #include "Graphics/Texture.hpp"
 
+#include <GLM/glm.hpp>
+#include <GLM/ext.hpp>
 
-#define WINDOW_WIDTH 1280
-#define WINDOW_HEIGHT 720
+constexpr auto WINDOW_WIDTH = 1280;
+constexpr auto WINDOW_HEIGHT = 720;
 
 int main()
 {
@@ -68,12 +71,27 @@ int main()
 	glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
+    // камера
+    Camera* camera = new Camera(glm::vec3(0, 0, 1), 0.5f);
+
+    glm::mat4 model(1.0f); // матрица трансформации объекта
+    model = glm::translate(model, glm::vec3(0.5f, 0, 0)); // функция трансформирования не меняет матрицу, а возвращает новую
+
+    // время
+    double lastTime = glfwGetTime();
+    double deltaTime = 0.0;
+    double currentTime;
+    float speed = 5.0f;
+
     // основной цикл программы
     while (!Window::ShouldClose())
     {
-        // запрос и обработка событий
-        Events::PollEvents();
+        // вычисляем разницу времени для стабильного FPS
+        currentTime = glfwGetTime();
+        deltaTime = currentTime - lastTime;
+        lastTime = currentTime;
 
+        // обработка событий
         if (Events::KeyJustPressed(GLFW_KEY_ESCAPE))
         {
             Window::SetShouldClose(true);
@@ -82,12 +100,33 @@ int main()
         {
             glClearColor(0, 0, 0, 1);
         }
+        if (Events::KeyPressed(GLFW_KEY_W))
+        {
+            camera->position += camera->front * static_cast<float>(deltaTime) * speed;
+        }
+    	if (Events::KeyPressed(GLFW_KEY_S))
+        {
+            camera->position -= camera->front * static_cast<float>(deltaTime) * speed;
+        }
+        if (Events::KeyPressed(GLFW_KEY_D))
+        {
+            camera->position += camera->right * static_cast<float>(deltaTime) * speed;
+        }
+    	if (Events::KeyPressed(GLFW_KEY_A))
+        {
+            camera->position -= camera->right * static_cast<float>(deltaTime) * speed;
+        }
 
         // очистка изображения
         glClear(GL_COLOR_BUFFER_BIT);
 
     	// отрисовка VAO
         shader->Use();
+        shader->UniformMatrix("model_view", model);
+        shader->UniformMatrix(
+            "projection_view",
+            camera->GetProjectionMatrix() * camera->GetViewMatrix()
+        );
         texture->Bind();
 		
         glBindVertexArray(vertexArrayId);
@@ -96,6 +135,9 @@ int main()
 
         // обмен переднего и заднего буферов
         Window::SwapBuffers();
+
+        // запрос событий
+        Events::PollEvents();
     }
 
     // освобождение памяти

@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Sources\Window\Camera.cpp" />
     <ClCompile Include="Sources\Loaders\c_load_png.c" />
     <ClCompile Include="Sources\Loaders\LoadShader.cpp" />
     <ClCompile Include="Sources\Graphics\Shader.cpp" />
@@ -29,6 +30,7 @@
     <ClCompile Include="Sources\Window\Window.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Sources\Window\Camera.hpp" />
     <ClInclude Include="Sources\Loaders\c_load_png.h" />
     <ClInclude Include="Sources\Loaders\LoadShader.hpp" />
     <ClInclude Include="Sources\Graphics\Shader.hpp" />
@@ -114,7 +116,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;GLEW_STATIC;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\GLFW-3.3.6\include;$(SolutionDir)Dependencies\GLEW-2.1.0\include;$(SolutionDir)Dependencies\ZLIB-1.2.11.9\include;$(SolutionDir)Dependencies\LIBPNG-1.4.1.13\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\GLFW-3.3.6\include;$(SolutionDir)Dependencies\GLEW-2.1.0\include;$(SolutionDir)Dependencies\ZLIB-1.2.11.9\include;$(SolutionDir)Dependencies\LIBPNG-1.4.1.13\include;$(SolutionDir)Dependencies\GLM-0.9.9.7;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

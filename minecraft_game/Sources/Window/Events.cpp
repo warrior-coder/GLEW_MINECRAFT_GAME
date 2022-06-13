@@ -19,6 +19,7 @@ bool Events::cursorStarted;
 #define MOUSE_BUTTON_CODE_OFFSET 1024
 
 
+// функция-обработчик нажатий клавиш клавиатуры
 void KeyCallback(GLFWwindow* window, int keyCode, int scanCode, int action, int mods)
 {
 	if (action == GLFW_PRESS)
@@ -33,6 +34,7 @@ void KeyCallback(GLFWwindow* window, int keyCode, int scanCode, int action, int 
 	}
 }
 
+// функция-обработчик нажатий клавиш мыши
 void MouseButtonCallback(GLFWwindow* window, int buttonCode, int action, int mods)
 {
 	const int keyCode = MOUSE_BUTTON_CODE_OFFSET + buttonCode;
@@ -49,6 +51,7 @@ void MouseButtonCallback(GLFWwindow* window, int buttonCode, int action, int mod
 	}
 }
 
+// функция-обработчик изменения позиции курсора
 void CursorPositionCallback(GLFWwindow* window, double xPos, double yPos)
 {
 	if (Events::cursorStarted)
@@ -63,6 +66,14 @@ void CursorPositionCallback(GLFWwindow* window, double xPos, double yPos)
 
 	Events::cursorX = xPos;
 	Events::cursorY = yPos;
+}
+
+// функция-обработчик изменения размера окна
+void WindowSizeCallback(GLFWwindow* window, int width, int height)
+{
+	glViewport(0, 0, width, height);
+	Window::width = width;
+	Window::height = height;
 }
 
 int Events::Initialize()
@@ -83,6 +94,7 @@ int Events::Initialize()
 	glfwSetKeyCallback(window, KeyCallback);
 	glfwSetMouseButtonCallback(window, MouseButtonCallback);
 	glfwSetCursorPosCallback(window, CursorPositionCallback);
+	glfwSetWindowSizeCallback(window, WindowSizeCallback);
 
 	return 0;
 }
