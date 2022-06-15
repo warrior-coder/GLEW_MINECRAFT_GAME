@@ -5,6 +5,9 @@
 #include "Window/Camera.hpp"
 #include "Graphics/Shader.hpp"
 #include "Graphics/Texture.hpp"
+#include "Graphics/Mesh.hpp"
+
+#include <GLM/gtc/matrix_transform.hpp>
 
 constexpr auto WINDOW_WIDTH = 1280;
 constexpr auto WINDOW_HEIGHT = 720;
@@ -43,23 +46,10 @@ int main()
          1,  1,  0,  1,  1,
     	-1,  1,  0,  0,  1
     }; // массив координат вершин
-    GLuint vertexCoordinatesBufferId;
-
-	glGenBuffers(1, &vertexCoordinatesBufferId); // генерируем 1 буфер для VBO (Vertex Buffer Object) на видеокарте
-    glBindBuffer(GL_ARRAY_BUFFER, vertexCoordinatesBufferId); // связываем vertexCoordinatesBufferId с буфером
-		glBufferData(GL_ARRAY_BUFFER, sizeof(vertexCoordinates), vertexCoordinates, GL_STATIC_DRAW); // копируем данные vertexCoordinates из оперативной памяти в буфер на видеокарту
-
-    // указываем вершинные атрибуты для VAO
-    GLuint vertexArrayId;
-
-    glGenVertexArrays(1, &vertexArrayId); // генерируем 1 буфер для VAO (Vertex Array Object) на видеокарте
-	glBindVertexArray(vertexArrayId); // привязываем VAO
-		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (GLvoid*)(0 * sizeof(GLfloat)));
-	    glEnableVertexAttribArray(0);
-		glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (GLvoid*)(3 * sizeof(GLfloat)));
-	    glEnableVertexAttribArray(1);
-    glBindVertexArray(0u); // отвязываем VAO
-    glBindBuffer(GL_ARRAY_BUFFER, 0u); // отвязываемся от буфера
+    const GLint attributes[] = {
+        3, 2, NULL
+    };
+    Mesh* mesh = new Mesh(vertexCoordinates, 6, attributes);
 
     // очистка изображения
     glClearColor(0.5f, 0.5f, 0.5f, 1);
@@ -142,35 +132,28 @@ int main()
         }
        
 
-        // очистка изображения
-        glClear(GL_COLOR_BUFFER_BIT);
+        
+        glClear(GL_COLOR_BUFFER_BIT); // очистка изображения
 
-    	// отрисовка VAO
+    	// отрисовка 
         shader->Use();
         shader->UniformMatrix("model_view", modelView);
-        shader->UniformMatrix(
-            "projection_view",
-            camera->GetProjectionMatrix() * camera->GetViewMatrix()
-        );
+        shader->UniformMatrix("projection_view", camera->GetProjectionMatrix() * camera->GetViewMatrix());
         texture->Bind();
+        mesh->Draw(GL_TRIANGLES);
 		
-        glBindVertexArray(vertexArrayId);
-			glDrawArrays(GL_TRIANGLES, 0, 6);
-        glBindVertexArray(0u);
+        
+        Window::SwapBuffers(); // обмен переднего и заднего буферов
 
-        // обмен переднего и заднего буферов
-        Window::SwapBuffers();
-
-        // запрос событий
-        Events::PollEvents();
+       
+        Events::PollEvents();  // запрос событий
     }
 
     // освобождение памяти
     delete shader;
     delete texture;
     delete camera;
-    glDeleteBuffers(1, &vertexCoordinatesBufferId); // удаление вершинного буфера
-    glDeleteVertexArrays(1, &vertexArrayId); // удаление вершинного массива
+    delete mesh;
     Window::Terminate();
 
     return 0;

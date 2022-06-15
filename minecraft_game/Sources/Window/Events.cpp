@@ -111,8 +111,7 @@ void Events::PollEvents()
 	cursorDeltaX = 0.0;
 	cursorDeltaY = 0.0;
 
-	// запрос событий
-	glfwPollEvents();
+	glfwPollEvents(); // запрос событий
 }
 
 bool Events::KeyPressed(int keyCode)
@@ -151,7 +150,5 @@ void Events::ToggleCursor()
 {
 	cursorLocked = !cursorLocked;
 
-	Window::SetCursorMode(
-		cursorLocked ? GLFW_CURSOR_DISABLED : GLFW_CURSOR_NORMAL
-	);
+	Window::SetCursorMode(cursorLocked ? GLFW_CURSOR_DISABLED : GLFW_CURSOR_NORMAL);
 }

@@ -7,6 +7,7 @@
 void KeyCallback(GLFWwindow* window, int keyCode, int scanCode, int action, int mods);
 void MouseButtonCallback(GLFWwindow* window, int buttonCode, int action, int mods);
 void CursorPositionCallback(GLFWwindow* window, double xPos, double yPos);
+void WindowSizeCallback(GLFWwindow* window, int width, int height);
 
 // подсистема Events отвечает за события графическое окна
 class Events

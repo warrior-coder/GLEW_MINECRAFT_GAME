@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Sources\Graphics\Mesh.cpp" />
     <ClCompile Include="Sources\Window\Camera.cpp" />
     <ClCompile Include="Sources\Loaders\c_load_png.c" />
     <ClCompile Include="Sources\Loaders\LoadShader.cpp" />
@@ -30,6 +31,7 @@
     <ClCompile Include="Sources\Window\Window.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Sources\Graphics\Mesh.hpp" />
     <ClInclude Include="Sources\Window\Camera.hpp" />
     <ClInclude Include="Sources\Loaders\c_load_png.h" />
     <ClInclude Include="Sources\Loaders\LoadShader.hpp" />
