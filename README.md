@@ -9,6 +9,8 @@ Using libraries:
 * LIBPNG;
 * ZLIB.
 
+![screenshot4](Screenshots/Screenshot4.gif)
+
 ![screenshot3](Screenshots/Screenshot3.gif)
 
 ![screenshot2](Screenshots/Screenshot2.png)
