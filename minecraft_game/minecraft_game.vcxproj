@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Sources\Voxels\Chunk.cpp" />
     <ClCompile Include="Sources\Graphics\Mesh.cpp" />
     <ClCompile Include="Sources\Window\Camera.cpp" />
     <ClCompile Include="Sources\Loaders\c_load_png.c" />
@@ -29,8 +30,11 @@
     <ClCompile Include="Sources\Window\Events.cpp" />
     <ClCompile Include="Sources\Main.cpp" />
     <ClCompile Include="Sources\Window\Window.cpp" />
+    <ClCompile Include="Sources\Voxels\Voxel.cpp" />
+    <ClCompile Include="Sources\Graphics\VoxelRenderer.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Sources\Voxels\Chunk.hpp" />
     <ClInclude Include="Sources\Graphics\Mesh.hpp" />
     <ClInclude Include="Sources\Window\Camera.hpp" />
     <ClInclude Include="Sources\Loaders\c_load_png.h" />
@@ -40,6 +44,8 @@
     <ClInclude Include="Sources\Loaders\LoadTexture.hpp" />
     <ClInclude Include="Sources\Window\Events.hpp" />
     <ClInclude Include="Sources\Window\Window.hpp" />
+    <ClInclude Include="Sources\Voxels\Voxel.hpp" />
+    <ClInclude Include="Sources\Graphics\VoxelRenderer.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\FragmentShader.glsl" />
@@ -47,6 +53,8 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resources\TestImage.png" />
+    <Image Include="Resources\TestVoxel.png" />
+    <Image Include="Resources\TextureAtlas.png" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

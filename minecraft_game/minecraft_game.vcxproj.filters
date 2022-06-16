@@ -45,6 +45,15 @@
     <ClCompile Include="Sources\Graphics\Mesh.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Sources\Voxels\Voxel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\Voxels\Chunk.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Sources\Graphics\VoxelRenderer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Sources\Window\Window.hpp">
@@ -74,6 +83,15 @@
     <ClInclude Include="Sources\Graphics\Mesh.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Sources\Voxels\Voxel.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\Voxels\Chunk.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Sources\Graphics\VoxelRenderer.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\FragmentShader.glsl">
@@ -85,6 +103,12 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resources\TestImage.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\TestVoxel.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\TextureAtlas.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

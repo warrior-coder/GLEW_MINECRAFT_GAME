@@ -5,7 +5,10 @@
 #include "Window/Camera.hpp"
 #include "Graphics/Shader.hpp"
 #include "Graphics/Texture.hpp"
+#include "Graphics/VoxelRenderer.hpp"
 #include "Graphics/Mesh.hpp"
+#include "Voxels/Voxel.hpp"
+#include "Voxels/Chunk.hpp"
 
 #include <GLM/gtc/matrix_transform.hpp>
 
@@ -26,7 +29,7 @@ int main()
         return 3;
     }
 
-	Texture* texture = LoadTexture("Resources/TestImage.png");
+	Texture* texture = LoadTexture("Resources/TextureAtlas.png");
     if (!texture)
     {
         std::cerr << "FAILED_TO_LOAD_TEXTURE" << std::endl;
@@ -49,13 +52,19 @@ int main()
     const GLint attributes[] = {
         3, 2, NULL
     };
-    Mesh* mesh = new Mesh(vertexCoordinates, 6, attributes);
 
-    // очистка изображения
-    glClearColor(0.5f, 0.5f, 0.5f, 1);
+    VoxelRenderer voxelRenderer(1024 * 1024 * 8);
+    Chunk* chunk = new Chunk();
+    Mesh* mesh = voxelRenderer.Render(chunk);
+
+    
+    glClearColor(0.5f, 0.5f, 0.5f, 1); // очистка изображения
 
     // включение смешивания для корректной прозрачности
-	glEnable(GL_BLEND);
+    glEnable(GL_DEPTH_TEST);
+    glCullFace(GL_BACK);
+    glEnable(GL_CULL_FACE);
+    glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
     // камера
@@ -69,7 +78,7 @@ int main()
     double lastTime = glfwGetTime();
     double deltaTime;
     double currentTime;
-    float speed = 5.0f;
+    float speed = 12.0f;
     float cameraRotateX = 0.0f;
     float cameraRotateY = 0.0f;
 
@@ -133,7 +142,7 @@ int main()
        
 
         
-        glClear(GL_COLOR_BUFFER_BIT); // очистка изображения
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // очистка изображения
 
     	// отрисовка 
         shader->Use();
@@ -154,6 +163,7 @@ int main()
     delete texture;
     delete camera;
     delete mesh;
+    delete chunk;
     Window::Terminate();
 
     return 0;
